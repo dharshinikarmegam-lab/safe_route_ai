@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Powered Safe Route Navigation System focused on personal safety.">
+    <title>SafeRoute AI</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-auth">
+
+    <div class="app-container">
+        
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="ph-fill ph-shield-check"></i>
+                <span class="logo-text">SafeRoute AI</span>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <ul class="nav-links" id="nav-menu">
+                <li><button class="nav-btn active" data-target="home-view">Home</button></li>
+                <li><button class="nav-btn" data-target="routes-view">Routes</button></li>
+                <li><button class="nav-btn" data-target="safety-insights-view">Safety Insights</button></li>
+                <li><button class="nav-btn" data-target="emergency-view">Emergency</button></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- LOGIN VIEW -->
+            <section id="login-view" class="view active">
+                <div class="auth-card card">
+                    <div class="auth-header">
+                        <div class="auth-icon"><i class="ph-fill ph-user-circle"></i></div>
+                        <h2>Welcome to SafeRoute AI</h2>
+                        <p>Secure login for safer navigation</p>
+                    </div>
+                    
+                    <form id="login-form">
+                        <div class="input-group">
+                            <label><i class="ph ph-envelope"></i> Email address</label>
+                            <input type="email" placeholder="Enter your email" required id="login-email">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="ph ph-lock"></i> Password</label>
+                            <input type="password" placeholder="Enter your password" required id="login-password">
+                        </div>
+                        
+                        <div class="auth-actions">
+                            <label class="checkbox-group">
+                                <input type="checkbox" id="remember-me">
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" class="text-link">Forgot password?</a>
+                        </div>
+                        
+                        <button type="submit" class="primary-btn pulse-glow" id="login-submit-btn">
+                            <i class="ph ph-sign-in"></i> Login
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" class="text-link">Create new account</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOME VIEW -->
+            <section id="home-view" class="view">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1>Navigate with <span class="highlight-text">Confidence</span></h1>
+                        <p class="subtitle">Find the safest route using AI-powered risk analysis</p>
+                    </div>
+                </div>
+
+                <div class="grid-container">
+                    <div class="card form-card">
+                        <h3>Plan Your Route</h3>
+                        <div class="input-group">
+                            <label><i class="ph ph-map-pin"></i> Starting Location</label>
+                            <input type="text" placeholder="e.g. Current Location" id="start-location">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="ph ph-flag-checkered"></i> Destination</label>
+                            <input type="text" placeholder="Where do you want to go?" id="end-location">
+                        </div>
+                        
+                        <div class="row-inputs">
+                            <div class="input-group">
+                                <label><i class="ph ph-clock"></i> Travel Time</label>
+                                <select>
+                                    <option>Day</option>
+                                    <option>Night</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label><i class="ph ph-person-simple-walk"></i> Travel Mode</label>
+                                <select>
+                                    <option>Walking</option>
+                                    <option>Bike</option>
+                                    <option>Car</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="primary-btn pulse-glow" id="find-route-btn">
+                            <i class="ph ph-magnifying-glass"></i> Find Safest Route
+                        </button>
+                    </div>
+
+                    <div class="card map-preview-card placeholder-map">
+                        <div class="placeholder-overlay">
+                            <i class="ph-fill ph-map-trifold"></i>
+                            <p>AI Map Visualization</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="use-case-section">
+                    <div class="card use-case-card">
+                        <h3><i class="ph-fill ph-lightbulb"></i> How it helps</h3>
+                        <p>A user travelling at night can select destination and receive a safer route based on lighting, crowd density, and safety score.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROUTES VIEW -->
+            <section id="routes-view" class="view">
+                <div class="page-header">
+                    <h2>Available Routes</h2>
+                    <p>AI has analyzed real-time conditions for your trip</p>
+                </div>
+
+                <div class="simulated-map-container">
+                    <div class="placeholder-map route-map">
+                        <div class="route-line"></div>
+                        <div class="map-pin start-pin"><i class="ph-fill ph-map-pin"></i></div>
+                        <div class="map-pin end-pin"><i class="ph-fill ph-flag-checkered"></i></div>
+                    </div>
+                </div>
+
+                <div class="route-cards">
+                    <!-- Safest Route Card -->
+                    <div class="route-card safest-route">
+                        <div class="route-header">
+                            <div class="route-title">
+                                <i class="ph-fill ph-shield-check"></i>
+                                <span>Safest Route</span>
+                            </div>
+                            <div class="safety-score high">92% <span class="score-label">(Low Risk)</span></div>
+                        </div>
+                        <div class="route-details">
+                            <div class="detail-item"><i class="ph ph-warning-circle"></i> Risk Level: <span class="badge low">LOW</span></div>
+                            <div class="detail-item"><i class="ph ph-clock"></i> Travel Time: 18 minutes</div>
+                        </div>
+                        <div class="indicators">
+                            <span class="indicator-tag"><i class="ph ph-lightbulb"></i> Well lit roads</span>
+                            <span class="indicator-tag"><i class="ph ph-users"></i> Crowded streets</span>
+                            <span class="indicator-tag"><i class="ph ph-police-car"></i> Police station nearby</span>
+                        </div>
+                    </div>
+
+                    <!-- Faster Route Card -->
+                    <div class="route-card">
+                        <div class="route-header">
+                            <div class="route-title">
+                                <i class="ph-fill ph-lightning"></i>
+                                <span>Faster Route</span>
+                            </div>
+                            <div class="safety-score medium-score">65% <span class="score-label">(Medium Risk)</span></div>
+                        </div>
+                        <div class="route-details">
+                            <div class="detail-item"><i class="ph ph-warning-circle"></i> Risk Level: <span class="badge medium">MEDIUM</span></div>
+                            <div class="detail-item"><i class="ph ph-clock"></i> Travel Time: 14 minutes</div>
+                        </div>
+                        <div class="indicators">
+                            <span class="indicator-tag warning"><i class="ph ph-users-three"></i> Less crowded</span>
+                            <span class="indicator-tag warning"><i class="ph ph-moon"></i> Poorly lit area</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="route-comparison-card card">
+                    <h3>Route Comparison</h3>
+                    <div class="table-responsive">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Factor</th>
+                                    <th>Safest Route</th>
+                                    <th>Faster Route</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Risk Level</td>
+                                    <td><span class="badge low">Low Risk</span></td>
+                                    <td><span class="badge medium">Medium Risk</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Lighting Condition</td>
+                                    <td>Well Lit</td>
+                                    <td>Poorly Lit</td>
+                                </tr>
+                                <tr>
+                                    <td>Crowd Density</td>
+                                    <td>Crowded</td>
+                                    <td>Isolated</td>
+                                </tr>
+                                <tr>
+                                    <td>Travel Time</td>
+                                    <td>18 mins</td>
+                                    <td>14 mins</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button class="secondary-btn large-btn" id="share-route-btn">
+                        <i class="ph ph-share-network"></i> Share Route
+                    </button>
+                    <button class="primary-btn large-btn">
+                        <i class="ph-fill ph-navigation-arrow"></i> Start Safe Navigation
+                    </button>
+                </div>
+            </section>
+
+            <!-- SAFETY INSIGHTS VIEW -->
+            <section id="safety-insights-view" class="view">
+                <div class="page-header">
+                    <h2>Location Safety Insights</h2>
+                    <p>How the AI calculates route safety</p>
+                </div>
+
+                <div class="risk-meter-container card">
+                    <h3>Current Area Risk Level</h3>
+                    <div class="risk-meter">
+                        <div class="meter-bar">
+                            <div class="meter-fill" style="width: 25%;"></div>
+                        </div>
+                        <div class="meter-labels">
+                            <span>Low</span>
+                            <span>Medium</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    <p class="meter-status">Overall Assessment: <strong>Safe</strong></p>
+                </div>
+
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="icon-wrapper green">
+                            <i class="ph-fill ph-shield"></i>
+                        </div>
+                        <h4>Crime Rate Analysis</h4>
+                        <p>Low reported incidents in the last 30 days within a 2km radius.</p>
+                        <span class="status-indicator good">Favorable</span>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="icon-wrapper yellow">
+                            <i class="ph-fill ph-lightbulb"></i>
+                        </div>
+                        <h4>Lighting Conditions</h4>
+                        <p>Main roads are well lit, but side alleys have partial coverage.</p>
+                        <span class="status-indicator fair">Moderate</span>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="icon-wrapper green">
+                            <i class="ph-fill ph-star"></i>
+                        </div>
+                        <h4>User Safety Ratings</h4>
+                        <p>4.8/5 average perceived safety from verified community users.</p>
+                        <span class="status-indicator good">Excellent</span>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="icon-wrapper blue">
+                            <i class="ph-fill ph-car-profile"></i>
+                        </div>
+                        <h4>Traffic Density</h4>
+                        <p>Normal traffic flow ensures activity. Not isolated.</p>
+                        <span class="status-indicator good">Active</span>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="icon-wrapper red">
+                            <i class="ph-fill ph-first-aid"></i>
+                        </div>
+                        <h4>Emergency Services</h4>
+                        <p>2 police stations and 1 hospital within a 5-minute radius.</p>
+                        <span class="status-indicator good">High Proximity</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EMERGENCY SOS VIEW -->
+            <section id="emergency-view" class="view">
+                <div class="emergency-container">
+                    <div class="sos-header">
+                        <h2>Emergency Assistance</h2>
+                        <p>Send an emergency alert to trusted contacts immediately.</p>
+                    </div>
+
+                    <div class="sos-action-area">
+                        <button class="sos-button" id="sos-btn">
+                            <div class="sos-ripple"></div>
+                            <span>SOS</span>
+                        </button>
+                    </div>
+
+                    <div class="contacts-card card">
+                        <h3>Trusted Contacts</h3>
+                        <ul class="contact-list">
+                            <li>
+                                <div class="contact-info">
+                                    <div class="contact-avatar"><i class="ph-fill ph-user"></i></div>
+                                    <div>
+                                        <strong>Mom</strong>
+                                        <span>Primary Contact</span>
+                                    </div>
+                                </div>
+                                <div class="contact-status active"><i class="ph-fill ph-check-circle"></i> Ready</div>
+                            </li>
+                            <li>
+                                <div class="contact-info">
+                                    <div class="contact-avatar"><i class="ph-fill ph-user"></i></div>
+                                    <div>
+                                        <strong>Friend</strong>
+                                        <span>Secondary Contact</span>
+                                    </div>
+                                </div>
+                                <div class="contact-status active"><i class="ph-fill ph-check-circle"></i> Ready</div>
+                            </li>
+                            <li>
+                                <div class="contact-info">
+                                    <div class="contact-avatar alert"><i class="ph-fill ph-police-car"></i></div>
+                                    <div>
+                                        <strong>Local Police</strong>
+                                        <span>Standard Emergency</span>
+                                    </div>
+                                </div>
+                                <div class="contact-status active"><i class="ph-fill ph-check-circle"></i> Ready</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><i class="ph-fill ph-shield-check"></i> AI Powered Safe Travel Assistant</p>
+        </footer>
+
+        <!-- Toast Notification / Popup -->
+        <div class="toast-popup" id="alert-toast">
+            <i class="ph-fill ph-warning-circle"></i>
+            <span>Alert sent successfully</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <!-- Supabase Integration -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const supabaseUrl = "https://supabase.com/dashboard/project/xjtsqquuohcrfzxxnezt/settings/general";
+        const supabaseKey = "sb_publishable_N3jzcDpAMvEz7InmUqRrWQ_4EaRlUNV";
+        window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
+</body>
+</html>
